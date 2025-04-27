@@ -1,12 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="width=device-width, initial-scale=1.0">
-        <title>Main page</title>
-    </head>
-    <body>
-        <!-- First comment in this file LOL -->
-        <a href="google.com" title="Press me">Google</a>
-    </body>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация:</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .input-container {
+            margin-bottom: 15px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Форма отправки</h1>
+    <form action="#" method="post">
+        <div class="input-container">
+            <label for="userInput">Введите текст:</label>
+            <input type="text" id="userInput" name="userInput" placeholder="Введите что-нибудь...">
+        </div>
+        <button type="submit">Отправить</button>
+    </form>
+</body>
 </html>
