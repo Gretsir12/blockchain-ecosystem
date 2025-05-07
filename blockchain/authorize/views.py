@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import form
+# from .forms import form
 from .forms import UserForm
 
 # def auth(request):
