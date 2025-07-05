@@ -1,5 +1,6 @@
 from django import forms
 from django.http import request
 
-class form(request):
-  username = forms.Field()
+class UserForm(forms.Form):
+  username = forms.CharField()
+  email = forms.EmailField()
