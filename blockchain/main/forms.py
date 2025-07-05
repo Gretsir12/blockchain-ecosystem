@@ -3,4 +3,4 @@ from django.http import request
 
 class UserForm(forms.Form):
   username = forms.CharField()
-  email = forms.EmailField()
+  # email = forms.EmailField()

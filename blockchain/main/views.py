@@ -5,10 +5,9 @@ from .forms import UserForm
 # Create your views here.
 
 def index(request):
-    def index(request):
-        userform = UserForm()
-        return render(request, "main/index.html",
-        { "form": userform})
+    userform = UserForm()
+    return render(request, "main/index.html",
+    { "form": userform })
 
 def about(request):
     return render(request, 'main/about.html')
