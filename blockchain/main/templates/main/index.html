@@ -1,16 +1,586 @@
 <!DOCTYPE html>
-<head><title>main page</title><link rel="stylesheet" href="style.css"></head>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main page</title>
+    <title>CloudBox - Ваше безопасное облачное хранилище</title>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-color: #f8f9fa;
+            --dark-color: #202124;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .auth-buttons .btn {
+            margin-left: 1rem;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(66, 133, 244, 0.1);
+        }
+        
+        .btn-signup {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-signup:hover {
+            background-color: #3367d6;
+        }
+        
+        .hero {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #5f6368;
+        }
+        
+        .cta-buttons {
+            margin-top: 2rem;
+        }
+        
+        .cta-buttons .btn {
+            margin: 0 0.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3367d6;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(66, 133, 244, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .features {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #5f6368;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .feature-card p {
+            color: #5f6368;
+        }
+        
+        .pricing {
+            padding: 5rem 2rem;
+            background-color: #f8f9fa;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--primary-color);
+            position: relative;
+        }
+        
+        .popular-tag {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #5f6368;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .pricing-btn:hover {
+            background-color: #3367d6;
+        }
+        
+        .popular .pricing-btn {
+            background-color: var(--secondary-color);
+        }
+        
+        .popular .pricing-btn:hover {
+            background-color: #2d9249;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc1c6;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-    <body>
-        <h1>Main page</h1>
-        <table>
-            {{ form }}
-        </table>
-        <button type="submit">Sign in</button>
-    </body>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-cloud"></i>
+                <span>CloudBox</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Главная</a></li>
+                <li><a href="#features">Возможности</a></li>
+                <li><a href="#pricing">Тарифы</a></li>
+                <li><a href="#">Безопасность</a></li>
+                <li><a href="#">Поддержка</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-login">Войти</a>
+                <a href="#" class="btn btn-signup">Регистрация</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Безопасное облачное хранилище для ваших файлов</h1>
+        <p>Храните, синхронизируйте и делитесь файлами с кем угодно. Доступно на всех ваших устройствах с шифрованием данных.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary">Попробовать бесплатно</a>
+            <a href="#" class="btn btn-secondary">Узнать больше</a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Почему выбирают CloudBox</h2>
+            <p>Надежное решение для хранения и обмена файлами с передовыми технологиями защиты</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3>Шифрование данных</h3>
+                <p>Все ваши файлы шифруются на лету с использованием AES-256, обеспечивая максимальную защиту.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>Синхронизация</h3>
+                <p>Доступ к файлам с любого устройства. Изменения синхронизируются мгновенно.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <h3>Общий доступ</h3>
+                <p>Делитесь файлами и папками с коллегами и друзьями с гибкими настройками доступа.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3>История версий</h3>
+                <p>Доступ ко всем предыдущим версиям файлов в течение 30 дней (или больше по тарифу).</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Высокая скорость</h3>
+                <p>Быстрая загрузка и выгрузка файлов благодаря распределенной сети серверов.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h3>Надежность</h3>
+                <p>99.9% uptime гарантировано. Ваши данные хранятся в нескольких дата-центрах.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="section-title">
+            <h2>Выберите подходящий тариф</h2>
+            <p>Гибкие тарифные планы для любых потребностей — от личного использования до бизнеса</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Бесплатный</h3>
+                <div class="price">$0 <span>/месяц</span></div>
+                <ul class="pricing-features">
+                    <li>10 ГБ места</li>
+                    <li>До 2 ГБ размер файла</li>
+                    <li>Базовое шифрование</li>
+                    <li>История версий 7 дней</li>
+                    <li>Ограниченный общий доступ</li>
+                </ul>
+                <a href="#" class="pricing-btn">Начать</a>
+            </div>
+            <div class="pricing-card popular">
+                <div class="popular-tag">Популярный</div>
+                <h3>Профессиональный</h3>
+                <div class="price">$9.99 <span>/месяц</span></div>
+                <ul class="pricing-features">
+                    <li>1 ТБ места</li>
+                    <li>До 10 ГБ размер файла</li>
+                    <li>Улучшенное шифрование</li>
+                    <li>История версий 30 дней</li>
+                    <li>Расширенный общий доступ</li>
+                    <li>Приоритетная поддержка</li>
+                </ul>
+                <a href="#" class="pricing-btn">Попробовать</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Бизнес</h3>
+                <div class="price">$24.99 <span>/месяц</span></div>
+                <ul class="pricing-features">
+                    <li>5 ТБ места</li>
+                    <li>Неограниченный размер файла</li>
+                    <li>Максимальное шифрование</li>
+                    <li>История версий 180 дней</li>
+                    <li>Полный контроль доступа</li>
+                    <li>До 5 пользователей</li>
+                    <li>Круглосуточная поддержка</li>
+                </ul>
+                <a href="#" class="pricing-btn">Купить</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>CloudBox</h3>
+                <p>Лучшее решение для безопасного хранения и обмена файлами в облаке.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Продукт</h3>
+                <ul>
+                    <li><a href="#">Функции</a></li>
+                    <li><a href="#">Тарифы</a></li>
+                    <li><a href="#">Безопасность</a></li>
+                    <li><a href="#">Приложения</a></li>
+                    <li><a href="#">Статус</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Компания</h3>
+                <ul>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Блог</a></li>
+                    <li><a href="#">Карьера</a></li>
+                    <li><a href="#">Партнеры</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Поддержка</h3>
+                <ul>
+                    <li><a href="#">Центр помощи</a></li>
+                    <li><a href="#">Документация</a></li>
+                    <li><a href="#">Сообщество</a></li>
+                    <li><a href="#">Форум</a></li>
+                    <li><a href="#">Чат</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 CloudBox. Все права защищены. <a href="#">Политика конфиденциальности</a> | <a href="#">Условия использования</a></p>
+        </div>
+    </footer>
+</body>
 </html>
