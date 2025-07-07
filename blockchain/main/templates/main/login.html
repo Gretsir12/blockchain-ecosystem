@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudBox - Регистрация</title>
+    <title>CloudBox - Вход в аккаунт</title>
     <style>
         :root {
             --primary-color: #4285f4;
@@ -54,18 +54,18 @@
             font-size: 2rem;
         }
         
-        .login-link {
+        .register-link {
             text-decoration: none;
             color: var(--gray-color);
             font-weight: 500;
             transition: color 0.3s;
         }
         
-        .login-link:hover {
+        .register-link:hover {
             color: var(--primary-color);
         }
         
-        .login-link span {
+        .register-link span {
             color: var(--primary-color);
             font-weight: 600;
         }
@@ -78,7 +78,7 @@
             padding: 2rem;
         }
         
-        .register-card {
+        .login-card {
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
@@ -88,18 +88,18 @@
             margin: 2rem 0;
         }
         
-        .register-header {
+        .login-header {
             text-align: center;
             margin-bottom: 2rem;
         }
         
-        .register-header h1 {
+        .login-header h1 {
             font-size: 2rem;
             margin-bottom: 0.5rem;
             color: var(--dark-color);
         }
         
-        .register-header p {
+        .login-header p {
             color: var(--gray-color);
         }
         
@@ -129,27 +129,6 @@
             box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.2);
         }
         
-        .password-strength {
-            height: 4px;
-            background-color: #eee;
-            margin-top: 0.5rem;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        
-        .strength-bar {
-            height: 100%;
-            width: 0;
-            background-color: var(--accent-color);
-            transition: width 0.3s, background-color 0.3s;
-        }
-        
-        .password-hint {
-            font-size: 0.8rem;
-            color: var(--gray-color);
-            margin-top: 0.3rem;
-        }
-        
         .btn {
             display: inline-block;
             width: 100%;
@@ -171,6 +150,32 @@
         
         .btn:active {
             transform: translateY(0);
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember-me input {
+            margin-right: 0.5rem;
+        }
+        
+        .forgot-password {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
         }
         
         .divider {
@@ -232,20 +237,10 @@
             color: #1877f2;
         }
         
-        .terms {
-            font-size: 0.8rem;
-            color: var(--gray-color);
+        .error-message {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
             text-align: center;
-            margin-top: 1.5rem;
-        }
-        
-        .terms a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-        
-        .terms a:hover {
-            text-decoration: underline;
         }
         
         footer {
@@ -279,11 +274,11 @@
         }
         
         @media (max-width: 600px) {
-            .register-card {
+            .login-card {
                 padding: 1.5rem;
             }
             
-            .register-header h1 {
+            .login-header h1 {
                 font-size: 1.7rem;
             }
         }
@@ -297,43 +292,45 @@
                 <i class="fas fa-cloud"></i>
                 <span>CloudBox</span>
             </div>
-            <a href="login" class="login-link">Уже есть аккаунт? <span>Войти</span></a>
+            <a href="reg" class="register-link">Нет аккаунта? <span>Зарегистрироваться</span></a>
         </nav>
     </header>
 
     <div class="container">
-        <div class="register-card">
-            <div class="register-header">
-                <h1>Создайте аккаунт</h1>
-                <p>Начните использовать CloudBox прямо сейчас</p>
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Вход в аккаунт</h1>
+                <p>Введите свои учетные данные для доступа к облачному хранилищу</p>
             </div>
             
-            <form id="registerForm">
+            {% if form.errors %}
+                <div class="error-message">
+                    Неправильный email или пароль. Пожалуйста, попробуйте снова.
+                </div>
+            {% endif %}
+            
+            <form method="POST" action="">
+                {% csrf_token %}
+                
                 <div class="form-group">
-                    <label for="name">Имя</label>
-                    <input type="text" id="name" class="form-control" placeholder="Введите ваше имя" required>
+                    <label for="id_username">Email</label>
+                    <input type="email" name="username" id="id_username" class="form-control" placeholder="Введите ваш email" required autofocus>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" placeholder="Введите ваш email" required>
+                    <label for="id_password">Пароль</label>
+                    <input type="password" name="password" id="id_password" class="form-control" placeholder="Введите ваш пароль" required>
                 </div>
                 
-                <div class="form-group">
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" class="form-control" placeholder="Создайте пароль" required>
-                    <div class="password-strength">
-                        <div class="strength-bar" id="strengthBar"></div>
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Запомнить меня</label>
                     </div>
-                    <div class="password-hint">Пароль должен содержать не менее 8 символов, включая цифры и специальные знаки</div>
+                    <a href="" class="forgot-password">Забыли пароль?</a>
                 </div>
                 
-                <div class="form-group">
-                    <label for="confirmPassword">Подтвердите пароль</label>
-                    <input type="password" id="confirmPassword" class="form-control" placeholder="Повторите пароль" required>
-                </div>
-                
-                <button type="submit" class="btn">Зарегистрироваться</button>
+                <button type="submit" class="btn">Войти</button>
             </form>
             
             <div class="divider">или</div>
@@ -341,16 +338,12 @@
             <div class="social-login">
                 <button type="button" class="social-btn google-btn">
                     <i class="fab fa-google"></i>
-                    Продолжить с Google
+                    Войти с Google
                 </button>
                 <button type="button" class="social-btn facebook-btn">
                     <i class="fab fa-facebook-f"></i>
-                    Продолжить с Facebook
+                    Войти с Facebook
                 </button>
-            </div>
-            
-            <div class="terms">
-                Нажимая "Зарегистрироваться", вы соглашаетесь с нашими <a href="#">Условиями использования</a> и <a href="#">Политикой конфиденциальности</a>.
             </div>
         </div>
     </div>
@@ -368,47 +361,5 @@
             &copy; 2023 CloudBox. Все права защищены.
         </div>
     </footer>
-
-    <script>
-        // Простая проверка сложности пароля
-        document.getElementById('password').addEventListener('input', function(e) {
-            const password = e.target.value;
-            const strengthBar = document.getElementById('strengthBar');
-            let strength = 0;
-            
-            if (password.length > 0) strength += 20;
-            if (password.length >= 8) strength += 20;
-            if (/[A-Z]/.test(password)) strength += 20;
-            if (/[0-9]/.test(password)) strength += 20;
-            if (/[^A-Za-z0-9]/.test(password)) strength += 20;
-            
-            strengthBar.style.width = strength + '%';
-            
-            if (strength < 40) {
-                strengthBar.style.backgroundColor = '#ea4335'; // Красный
-            } else if (strength < 80) {
-                strengthBar.style.backgroundColor = '#fbbc05'; // Желтый
-            } else {
-                strengthBar.style.backgroundColor = '#34a853'; // Зеленый
-            }
-        });
-        
-        // Проверка совпадения паролей при отправке формы
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Пароли не совпадают!');
-                return;
-            }
-            
-            // Здесь должна быть логика отправки формы
-            alert('Регистрация успешна! Добро пожаловать в CloudBox!');
-            // window.location.href = 'dashboard.html';
-        });
-    </script>
 </body>
 </html>

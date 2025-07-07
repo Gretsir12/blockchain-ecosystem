@@ -11,3 +11,9 @@ def index(request):
 
 def about(request):
     return render(request, 'main/about.html')
+
+def reg(request):
+    return render(request, 'main/reg.html')
+
+def login(request):
+    return render(request, 'main/login.html')
