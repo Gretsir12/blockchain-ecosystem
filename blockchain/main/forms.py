@@ -1,6 +1,7 @@
 from django import forms
 from django.http import request
 
-class UserForm(forms.Form):
+class Registrationform(forms.Form):
+  email = forms.EmailField()
   username = forms.CharField()
-  # email = forms.EmailField()
+  passwd = forms.PasswordInput()
