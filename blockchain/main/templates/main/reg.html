@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CloudBox - Регистрация</title>
-    <link rel="stylesheet" href="reg-style.css">
+    <link rel="stylesheet" href="/static/main/css/registration.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
                 <i class="fas fa-cloud"></i>
                 <span>CloudBox</span>
             </div>
-            <a href="login" class="login-link">Уже есть аккаунт? <span>Войти</span></a>
+            <a href="/login" class="login-link">Уже есть аккаунт? <span>Войти</span></a>
         </nav>
     </header>
 
@@ -24,25 +24,40 @@
                 <h1>Создайте аккаунт</h1>
                 <p>Начните использовать CloudBox прямо сейчас</p>
             </div>
-            
-		{{ form }}	
-
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                    <div class="password-strength">
+                        <div id="strengthBar" class="strength-bar"></div>
+                    </div>
+                    <div class="password-hint">Минимум 8 символов, буквы, цифры и спецсимволы</div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Подтвердите пароль</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+                </div>
                 <button type="submit" class="btn">Зарегистрироваться</button>
             </form>
-            
             <div class="divider">или</div>
-            
             <div class="social-login">
-                <button type="button" class="social-btn google-btn">
+                <button type="button" class="social-btn google-btn" id="googleBtn">
                     <i class="fab fa-google"></i>
                     Продолжить с Google
                 </button>
-                <button type="button" class="social-btn facebook-btn">
+                <button type="button" class="social-btn facebook-btn" id="facebookBtn">
                     <i class="fab fa-facebook-f"></i>
                     Продолжить с Facebook
                 </button>
             </div>
-            
             <div class="terms">
                 Нажимая "Зарегистрироваться", вы соглашаетесь с нашими <a href="#">Условиями использования</a> и <a href="#">Политикой конфиденциальности</a>.
             </div>
@@ -51,7 +66,7 @@
 
     <footer>
         <div class="footer-links">
-            <a href="about">О нас</a>
+            <a href="/about">О нас</a>
             <a href="#">Функции</a>
             <a href="#">Тарифы</a>
             <a href="#">Безопасность</a>
@@ -64,45 +79,44 @@
     </footer>
 
     <script>
-        // Простая проверка сложности пароля
+        // Проверка сложности пароля
         document.getElementById('password').addEventListener('input', function(e) {
             const password = e.target.value;
             const strengthBar = document.getElementById('strengthBar');
             let strength = 0;
-            
             if (password.length > 0) strength += 20;
             if (password.length >= 8) strength += 20;
             if (/[A-Z]/.test(password)) strength += 20;
             if (/[0-9]/.test(password)) strength += 20;
             if (/[^A-Za-z0-9]/.test(password)) strength += 20;
-            
             strengthBar.style.width = strength + '%';
-            
             if (strength < 40) {
-                strengthBar.style.backgroundColor = '#ea4335'; // Красный
+                strengthBar.style.backgroundColor = '#ea4335';
             } else if (strength < 80) {
-                strengthBar.style.backgroundColor = '#fbbc05'; // Желтый
+                strengthBar.style.backgroundColor = '#fbbc05';
             } else {
-                strengthBar.style.backgroundColor = '#34a853'; // Зеленый
+                strengthBar.style.backgroundColor = '#34a853';
             }
         });
-        
-        // Проверка совпадения паролей при отправке формы
+        // Проверка совпадения паролей и редирект после регистрации
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            
             if (password !== confirmPassword) {
                 alert('Пароли не совпадают!');
                 return;
             }
-            
-            // Здесь должна быть логика отправки формы
             alert('Регистрация успешна! Добро пожаловать в CloudBox!');
-            // window.location.href = 'dashboard.html';
+            window.location.href = '/login';
         });
+        // Соц. кнопки редиректы
+        document.getElementById('googleBtn').onclick = function() {
+            window.location.href = '/login/google';
+        };
+        document.getElementById('facebookBtn').onclick = function() {
+            window.location.href = '/login/facebook';
+        };
     </script>
 </body>
 </html>
