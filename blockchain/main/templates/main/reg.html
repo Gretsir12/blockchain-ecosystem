@@ -24,28 +24,20 @@
                 <h1>Создайте аккаунт</h1>
                 <p>Начните использовать CloudBox прямо сейчас</p>
             </div>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="username">Имя пользователя</label>
-                    <input type="text" id="username" name="username" class="form-control" required>
+            <form method="post" class="register-form">
+                {% csrf_token %}
+                <div class="form-fields">
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="form-error">{{ field.errors|striptags }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
-                    <div class="password-strength">
-                        <div id="strengthBar" class="strength-bar"></div>
-                    </div>
-                    <div class="password-hint">Минимум 8 символов, буквы, цифры и спецсимволы</div>
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Подтвердите пароль</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
-                </div>
-                <button type="submit" class="btn">Зарегистрироваться</button>
+                <button type="submit" class="register-btn">Зарегистрироваться</button>
             </form>
             <div class="divider">или</div>
             <div class="social-login">
