@@ -29,7 +29,7 @@ def Send_mail(user_email):
 
 
 def generate_verification_code():
-    return str(random.randint(100000, 999999))    
+    return str(random.randint(100000, 999999))
 
 
 def DEBUG(username, email, password):
