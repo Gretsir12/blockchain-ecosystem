@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подтверждение Email</title>
+    <link rel="stylesheet" href="/static/main/css/registration.css">
+</head>
+<body>
+    <div class="container">
+        <div class="register-card">
+            <div class="register-header">
+                <h1>Подтвердите ваш Email</h1>
+                <p>Введите код, который был отправлен на вашу электронную почту.</p>
+            </div>
+            <form method="post" class="verify-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="code">Код подтверждения</label>
+                    <input type="text" id="code" name="code" maxlength="6" required class="form-control" placeholder="Введите код">
+                </div>
+                {% if error %}
+                    <div class="form-error">{{ error }}</div>
+                {% endif %}
+                <button type="submit" class="register-btn">Подтвердить</button>
+            </form>
+            <div class="terms">
+                Не получили код? <a href="/this_page" onclick="location.reload(); return false;">Отправить повторно</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

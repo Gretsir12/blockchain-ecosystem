@@ -24,4 +24,5 @@ urlpatterns = [
     path('about', include('main.urls')),
     path('reg', include('main.urls')),
     path('login', include('main.urls')),
+    path('verify_code', include('main.urls')),
 ]

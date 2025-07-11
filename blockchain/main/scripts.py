@@ -1,4 +1,4 @@
-import sqlite3
+
 # import re
 
 # db = sqlite3.connect('users.db') #creating database
@@ -16,12 +16,13 @@ def Send_mail(FROM,TO,SUBJECT,TEXT,SERVER):
     SERVER.sendmail(FROM, TO, message)
     SERVER.quit()
 
-def DEBUG(username, email):
+def DEBUG(username, email, password):
     print(f'DEBUG: Username:', {username})
     print(f'DEBUG: Email:', {email})
-    #print(f'DEBUG: Password:', {password})
+    print(f'DEBUG: Password:', {password})
 
 def registration(username, email, password):
+    import sqlite3
     try:
         # Connect to SQLite Database and create a cursor
         sqliteConnection = sqlite3.connect('databases/users.db')
