@@ -46,7 +46,3 @@ def registration(username, email, password):
     except Exception as error:
         print('DEBUG: Error occurred -', error)
         return None
-
-
-import sqlite3
-sqlite3.connect('databases/users.sqlite3')
