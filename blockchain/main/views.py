@@ -16,21 +16,17 @@ def reg(request):
     if request.method == "POST":
         userform = Registrationform(request.POST)
         if userform.is_valid():
-            # Access cleaned data with userform.cleaned_data
             username = userform.cleaned_data['username']
             email = userform.cleaned_data['email']
             password = userform.cleaned_data['password']
             DEBUG(username, email, password)
-
             Send_mail(email)
-
             return redirect('/verify_code')
         else:
             return render(request, 'main/reg.html', {"form": userform})
     else:
         userform = Registrationform()
-
-    return render(request, 'main/reg.html', {"form": userform} )
+        return render(request, 'main/reg.html', {"form": userform} )
 
 
 def login(request):
@@ -50,11 +46,12 @@ def login(request):
 
 
 def Verify_code(request):
-    userform = Verify_codeForm()
     if request.method == "POST":
         code = request.POST.get('code')
-        if code == '123456':  # Example verification logic
+        if code == '123456':  # Example verification code, replace code generator in future
             return redirect('/success')
         else:
             return render(request, 'main/verify_code.html', {"error": "Invalid code"})
-    return render(request, 'main/verify_code.html', {"form": userform})
+    else:
+        userform = Verify_codeForm()
+        return render(request, 'main/verify_code.html', {"form": userform})
