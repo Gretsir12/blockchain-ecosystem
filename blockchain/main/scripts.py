@@ -3,7 +3,6 @@ import sqlite3
 from django.core.mail import send_mail
 from .models import User
 
-
 def Send_mail(user_email):
     import smtplib
     code = generate_verification_code()
