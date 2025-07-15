@@ -20,10 +20,8 @@ def reg(request):
             username = userform.cleaned_data['username']
             email = userform.cleaned_data['email']
             password = userform.cleaned_data['password']
-            DEBUG(username, email, password)
-
+            DEBUG(username, email, password)            
             Send_mail(email)
-
             return redirect('/verify_code')
         else:
             return render(request, 'main/reg.html', {"form": userform})
