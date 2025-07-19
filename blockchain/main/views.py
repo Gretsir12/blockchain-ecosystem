@@ -20,7 +20,17 @@ def reg(request):
             email = userform.cleaned_data['email']
             password = userform.cleaned_data['password']
             DEBUG(username, email, password)
-            Send_mail(email)
+            
+            from .models import User
+            #sending verification email
+            User.objects.create(username=username, email=email)
+            send_verification_email(User)
+            
+            # Redirect to verification code page
+            # Assuming you have a view for verifying the code
+            # You can also store the user in session or database if needed
+            print(f'DEBUG: User {username} code succsessfully sent')
+
             return redirect('/verify_code')
         else:
             return render(request, 'main/reg.html', {"form": userform})
